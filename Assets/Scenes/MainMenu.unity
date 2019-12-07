@@ -339,11 +339,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Credits
       objectReference: {fileID: 0}
-    - target: {fileID: 8933767168652607752, guid: b5fa78c03dc6b5f43b7a383f4503074f,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 8933767168652607749, guid: b5fa78c03dc6b5f43b7a383f4503074f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -448,12 +443,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Pivot.y
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5216283217457780760, guid: b5fa78c03dc6b5f43b7a383f4503074f,
-        type: 3}
-      propertyPath: m_Text
-      value: "Maude Braunstein\nKevin Luu\nDavid-\xC9tienne Pigeon\nPatrick Pin\nDaniel
-        Privorotsky"
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b5fa78c03dc6b5f43b7a383f4503074f, type: 3}

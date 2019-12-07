@@ -281,14 +281,14 @@ public class Player : MonoBehaviour
         moving = false;
         if (!pickingUpSword && !pauseMenu.GetComponent<Pause>().paused)
         {
-            if (Input.GetButton("Left"))
+            if (Input.GetButton("Left") || Input.GetAxis("Horizontal") < 0)
             {
                 transform.Translate(-Vector2.right * playerSpeed * Time.deltaTime);
                 transform.localScale = new Vector3(-1, 1, 1);
                 facingDirection = -transform.right;
                 moving = true;
             }
-            if (Input.GetButton("Right"))
+            if (Input.GetButton("Right") || Input.GetAxis("Horizontal") > 0)
             {
                 transform.Translate(Vector2.right * playerSpeed * Time.deltaTime);
                 transform.localScale = new Vector3(1, 1, 1);
@@ -356,7 +356,7 @@ public class Player : MonoBehaviour
     {
         if (inventory.switchSwords && swords.Count > 1) // Making sure the player has more than one sword)
         {
-            if (Input.mouseScrollDelta.y > 0) // mouse scroll up
+            if (Input.mouseScrollDelta.y > 0 || Input.GetKeyDown("joystick button 5")) // mouse scroll up
                 {
                     swords[activeSwordIndex].GetComponent<Sword>().cooldownTimer = 0;
                     swords[activeSwordIndex].gameObject.SetActive(false); // Disable current sword
@@ -373,7 +373,7 @@ public class Player : MonoBehaviour
 
                     swords[activeSwordIndex].gameObject.SetActive(true); // Re-enable the (selected) sword
                 }
-            else if (Input.mouseScrollDelta.y < 0) // mouse scroll down
+            else if (Input.mouseScrollDelta.y < 0 || Input.GetKeyDown("joystick button 4")) // mouse scroll down
             {
                 swords[activeSwordIndex].GetComponent<Sword>().cooldownTimer = 0;
                 swords[activeSwordIndex].gameObject.SetActive(false); // Disable current sword

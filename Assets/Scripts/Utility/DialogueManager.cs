@@ -39,6 +39,11 @@ public class DialogueManager : MonoBehaviour
     void Update()
     {
         sword = GameObject.FindGameObjectWithTag("Sword").GetComponent<Sword>();
+
+        if (Input.GetKeyDown("joystick button 0"))
+        {
+            DisplayNextSentence();
+        }
     }
 
     public void StartDialogue (Dialogue dialogue)
