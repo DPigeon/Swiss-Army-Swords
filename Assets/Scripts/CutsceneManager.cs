@@ -7,10 +7,12 @@ using UnityEngine.SceneManagement;
 public class CutsceneManager : MonoBehaviour {
 	public PlayableDirector director;
 	string sceneName;
+    Music music;
 
     void Start() {
         Scene currentScene = SceneManager.GetActiveScene(); // To know which level
 		sceneName = currentScene.name;
+        music = GameObject.Find("Music").GetComponent<Music>();
     }
 
     void Update() {
@@ -24,6 +26,7 @@ public class CutsceneManager : MonoBehaviour {
 		} else if (sceneName == "FinalCutscene") {
 			if (director.time > 50.5) { // If cutscene done, move to menu
 				SceneManager.LoadScene("MainMenu");
+                music.mainMenu = false;
 			}
 		}
     }
