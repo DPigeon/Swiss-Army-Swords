@@ -7,6 +7,8 @@ using UnityEngine.SceneManagement;
 public class Player : MonoBehaviour
 {
     public HitpointBar playerHPBar;
+	
+	Joystick joystick;
 
     [SerializeField] float playerSpeed;
     [SerializeField] float jumpForce;
@@ -57,7 +59,8 @@ public class Player : MonoBehaviour
         moving = false;
         grounded = false;
         falling = false;
-        hitpointBar = GameObject.Find("HitpointBar").GetComponent<HitpointBar>(); 
+        hitpointBar = GameObject.Find("HitpointBar").GetComponent<HitpointBar>();
+		joystick = GameObject.Find("Fixed Joystick").GetComponent<FixedJoystick>();
 
         audioSource = GetComponent<AudioSource>();
 
@@ -281,14 +284,14 @@ public class Player : MonoBehaviour
         moving = false;
         if (!pickingUpSword && !pauseMenu.GetComponent<Pause>().paused)
         {
-            if (Input.GetButton("Left"))
+            if (Input.GetButton("Left") || joystick.Horizontal <= -0.2F)
             {
                 transform.Translate(-Vector2.right * playerSpeed * Time.deltaTime);
                 transform.localScale = new Vector3(-1, 1, 1);
                 facingDirection = -transform.right;
                 moving = true;
             }
-            if (Input.GetButton("Right"))
+            if (Input.GetButton("Right") || joystick.Horizontal >= 0.2F)
             {
                 transform.Translate(Vector2.right * playerSpeed * Time.deltaTime);
                 transform.localScale = new Vector3(1, 1, 1);
@@ -297,18 +300,18 @@ public class Player : MonoBehaviour
             }
 
             //jump handling
-            if (grounded && Input.GetButtonDown("Jump"))
+            if (grounded && Input.GetButtonDown("Jump") || grounded && joystick.Vertical >= 0.5F)
             {
                 jumpTimeElapsed = 0;
                 rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
                 jumping = true;
                 makeJumpNoise();
             }
-            if (jumping && Input.GetButton("Jump"))
+            if (jumping && Input.GetButton("Jump") || jumping && joystick.Vertical >= 0.0F)
             {
                 timeJump();
             }
-            if (Input.GetButtonUp("Jump"))
+            if (Input.GetButtonUp("Jump") || joystick.Vertical >= 0.51F)
             {
                jumping = false;
             }
