@@ -2,10 +2,10 @@
 using System.Collections;
 
 public class PlatformDefines : MonoBehaviour { // Used to define the platforms and set what each platform need
-	GameObject joystick;
+	GameObject mobileControls;
 	
 	void Start () {
-		joystick = GameObject.Find("Fixed Joystick");
+		mobileControls = GameObject.Find("MobileControls");
 
 		#if UNITY_EDITOR
 			Debug.Log("Unity Editor");
@@ -20,12 +20,12 @@ public class PlatformDefines : MonoBehaviour { // Used to define the platforms a
 		#endif
 
 		#if UNITY_STANDALONE_WIN
-			joystick.SetActive(false);
+			mobileControls.SetActive(false);
 			Debug.Log("Stand Alone Windows");
 		#endif
 		
 		#if UNITY_STANDALONE_OSX
-			joystick.SetActive(false);
+			mobileControls.SetActive(false);
 			Debug.Log("Stand Alone Mac OS X");
 		#endif
 

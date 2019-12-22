@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class Sword : MonoBehaviour
@@ -21,6 +22,7 @@ public class Sword : MonoBehaviour
     public bool damaging;
     int _damage = 1;
 
+	public Button mobileAttackButton;
     public float cooldownTimer = 2;
     
     AudioSource audioSource;
@@ -46,6 +48,8 @@ public class Sword : MonoBehaviour
         swordAnimator = GetComponent<Animator>();
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
         inventory = GameObject.Find("InventoryManager").GetComponent<SwordInventory>();
+		mobileAttackButton = GameObject.Find("AttackButton").GetComponent<Button>();
+		mobileAttackButton.onClick.AddListener(SlashSword);
         swordCollider = player.GetComponentInChildren<BoxCollider2D>();
         swordCollider.enabled = false;
         audioSource = GetComponent<AudioSource>();
@@ -67,11 +71,11 @@ public class Sword : MonoBehaviour
         else
         { 
             if (Input.GetButtonDown("Fire1") && damaging == false && !pauseMenu.GetComponent<Pause>().paused)
-            {
-                Attack();
-                swordCollider.enabled = true;
-                makeAttackSound();
-            }
+			{
+				Attack();
+				swordCollider.enabled = true;
+				makeAttackSound();
+			}
 
             if (damaging)
             {
@@ -110,6 +114,16 @@ public class Sword : MonoBehaviour
         audioSource.Play();
         previousAudioIndex = randomAudioIndex;
     }
+	
+	public void SlashSword() { // For mobile
+		if (damaging == false && !pauseMenu.GetComponent<Pause>().paused)
+		{
+			Debug.Log("hi");
+			Attack();
+			swordCollider.enabled = true;
+			makeAttackSound();
+		}
+	}
 
     public virtual void Attack()
     {
