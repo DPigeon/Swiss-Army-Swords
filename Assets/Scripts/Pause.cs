@@ -109,7 +109,7 @@ public class Pause : MonoBehaviour
         }
     }
 
-    private void PauseGame()
+    public void PauseGame()
     {
         Time.timeScale = 0;
         ui.SetActive(false);

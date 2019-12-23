@@ -5,9 +5,15 @@ using UnityEngine;
 public class MobileActions : MonoBehaviour {
 	GameObject player;
 	GameObject activeSword;
+	GameObject inventory;
+	GameObject pauseMenu;
+	GameObject ui;
 
     void Start() {
         player = GameObject.Find("Player");
+		inventory = GameObject.Find("InventoryManager");
+		ui = GameObject.Find("UI Canvas");
+		pauseMenu = GameObject.Find("PauseMenu");
 		GetCurrentSword();
     }
 	
@@ -29,6 +35,20 @@ public class MobileActions : MonoBehaviour {
 	
 	public void Ability() {
 		activeSword.GetComponent<Sword>().MobileAbilityButton();
+	}
+	
+	public void SwitchSwordsLeft() {
+		player.GetComponent<Player>().SwitchSwordsDown();
+		inventory.GetComponent<SwordInventory>().ScrollDown();
+	}
+	
+	public void SwitchSwordsRight() {
+		player.GetComponent<Player>().SwitchSwordsUp();
+		inventory.GetComponent<SwordInventory>().ScrollUp();
+	}
+	
+	public void PauseGame() {
+		pauseMenu.GetComponent<Pause>().PauseGame();
 	}
 	
 }

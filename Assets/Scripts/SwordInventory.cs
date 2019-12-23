@@ -39,7 +39,6 @@ public class SwordInventory : MonoBehaviour {
         inventoryList[index].GetComponent<SpriteRenderer>().color = color;
         switchSwords = true;
         level2part2 = false;
-		swordJoystick = GameObject.Find("SwordJoystick").GetComponent<FixedJoystick>();
     }
 
     void Update()
@@ -140,23 +139,13 @@ public class SwordInventory : MonoBehaviour {
         if (inventoryList.Count > 1 && switchSwords)
         {
             Color color = new Color(0.368F, 0.96F, 0.13F); // Set green color to show sword equipped
-            if (Input.mouseScrollDelta.y > 0 || swordJoystick.Horizontal > 0.5F) // mouse scroll up
+            if (Input.mouseScrollDelta.y > 0) // mouse scroll up
             {
-                inventoryList[index].GetComponent<SpriteRenderer>().color = Color.white;
-                index++;
-                if (index == inventoryList.Count)
-                    index = 0;
-                inventoryList[index].GetComponent<SpriteRenderer>().color = color;
-                selectSound.Play();
+                ScrollUp();
             }
-            if (Input.mouseScrollDelta.y < 0 || swordJoystick.Horizontal < -0.5F) // mouse scroll down
+            if (Input.mouseScrollDelta.y < 0) // mouse scroll down
             {
-                inventoryList[index].GetComponent<SpriteRenderer>().color = Color.white;
-                index--;
-                if (index == -1)
-                    index = inventoryList.Count - 1;
-                inventoryList[index].GetComponent<SpriteRenderer>().color = color;
-                selectSound.Play();
+                ScrollDown();
             }
             if (Input.GetKeyDown(KeyCode.Alpha1)) // press 1
             {
@@ -195,4 +184,24 @@ public class SwordInventory : MonoBehaviour {
             }
         }
     }
+	
+	public void ScrollUp() {
+		Color color = new Color(0.368F, 0.96F, 0.13F);
+		inventoryList[index].GetComponent<SpriteRenderer>().color = Color.white;
+		index++;
+		if (index == inventoryList.Count)
+			index = 0;
+		inventoryList[index].GetComponent<SpriteRenderer>().color = color;
+		selectSound.Play();
+	}
+	
+	public void ScrollDown() {
+		Color color = new Color(0.368F, 0.96F, 0.13F);
+		inventoryList[index].GetComponent<SpriteRenderer>().color = Color.white;
+		index--;
+		if (index == -1)
+			index = inventoryList.Count - 1;
+		inventoryList[index].GetComponent<SpriteRenderer>().color = color;
+		selectSound.Play();
+	}
 }

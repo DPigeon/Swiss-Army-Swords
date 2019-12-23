@@ -10,7 +10,6 @@ public class Player : MonoBehaviour
 	
 	// Mobile UI Stuff
 	Joystick joystick;
-	Joystick swordJoystick;
 
     [SerializeField] float playerSpeed;
     [SerializeField] float jumpForce;
@@ -63,7 +62,6 @@ public class Player : MonoBehaviour
         falling = false;
         hitpointBar = GameObject.Find("HitpointBar").GetComponent<HitpointBar>();
 		joystick = GameObject.Find("Fixed Joystick").GetComponent<FixedJoystick>();
-		swordJoystick = GameObject.Find("SwordJoystick").GetComponent<FixedJoystick>();
 
         audioSource = GetComponent<AudioSource>();
 
@@ -287,14 +285,14 @@ public class Player : MonoBehaviour
         moving = false;
         if (!pickingUpSword && !pauseMenu.GetComponent<Pause>().paused)
         {
-            if (Input.GetButton("Left") || joystick.Horizontal <= -0.2F)
+            if (Input.GetButton("Left") || joystick.Horizontal <= -0.05F)
             {
                 transform.Translate(-Vector2.right * playerSpeed * Time.deltaTime);
                 transform.localScale = new Vector3(-1, 1, 1);
                 facingDirection = -transform.right;
                 moving = true;
             }
-            if (Input.GetButton("Right") || joystick.Horizontal >= 0.2F)
+            if (Input.GetButton("Right") || joystick.Horizontal >= 0.05F)
             {
                 transform.Translate(Vector2.right * playerSpeed * Time.deltaTime);
                 transform.localScale = new Vector3(1, 1, 1);
@@ -310,11 +308,11 @@ public class Player : MonoBehaviour
                 jumping = true;
                 makeJumpNoise();
             }
-            if (jumping && Input.GetButton("Jump") || jumping && joystick.Vertical >= 0.0F)
+            if (jumping && Input.GetButton("Jump"))
             {
                 timeJump();
             }
-            if (Input.GetButtonUp("Jump") || joystick.Vertical >= 0.51F)
+            if (Input.GetButtonUp("Jump") || joystick.Vertical <= 0.5F)
             {
                jumping = false;
             }
@@ -362,39 +360,13 @@ public class Player : MonoBehaviour
     {
         if (inventory.switchSwords && swords.Count > 1) // Making sure the player has more than one sword)
         {
-            if (Input.mouseScrollDelta.y > 0 || swordJoystick.Horizontal > 0.5F) // mouse scroll up or mobile button right
-                {
-                    swords[activeSwordIndex].GetComponent<Sword>().cooldownTimer = 0;
-                    swords[activeSwordIndex].gameObject.SetActive(false); // Disable current sword
-
-                    // Switch to next sword
-                    if (activeSwordIndex + 1 == swords.Count)
-                    {
-                        activeSwordIndex = 0;
-                    }
-                    else
-                    {
-                        activeSwordIndex = activeSwordIndex + 1;
-                    }
-
-                    swords[activeSwordIndex].gameObject.SetActive(true); // Re-enable the (selected) sword
-                }
-            else if (Input.mouseScrollDelta.y < 0 || swordJoystick.Horizontal < -0.5F) // mouse scroll down or mobile button left
+            if (Input.mouseScrollDelta.y > 0) // mouse scroll up
+			{
+				SwitchSwordsUp();
+			}
+            else if (Input.mouseScrollDelta.y < 0) // mouse scroll down
             {
-                swords[activeSwordIndex].GetComponent<Sword>().cooldownTimer = 0;
-                swords[activeSwordIndex].gameObject.SetActive(false); // Disable current sword
-
-                // Switch to next sword
-                if (activeSwordIndex - 1 == -1)
-                {
-                    activeSwordIndex = swords.Count - 1;
-                }
-                else
-                {
-                    activeSwordIndex = activeSwordIndex - 1;
-                }
-
-                swords[activeSwordIndex].gameObject.SetActive(true); // Re-enable the (selected) sword
+                SwitchSwordsDown();
             }
             if (Input.GetKeyDown(KeyCode.Alpha1)) // press 1
             {
@@ -428,6 +400,40 @@ public class Player : MonoBehaviour
             }
         }
     }
+	
+	public void SwitchSwordsDown() {
+		swords[activeSwordIndex].GetComponent<Sword>().cooldownTimer = 0;
+		swords[activeSwordIndex].gameObject.SetActive(false); // Disable current sword
+
+		// Switch to next sword
+		if (activeSwordIndex - 1 == -1)
+		{
+			activeSwordIndex = swords.Count - 1;
+		}
+		else
+		{
+			activeSwordIndex = activeSwordIndex - 1;
+		}
+
+		swords[activeSwordIndex].gameObject.SetActive(true); // Re-enable the (selected) sword
+	}
+	
+	public void SwitchSwordsUp() {
+		swords[activeSwordIndex].GetComponent<Sword>().cooldownTimer = 0;
+		swords[activeSwordIndex].gameObject.SetActive(false); // Disable current sword
+
+		// Switch to next sword
+		if (activeSwordIndex + 1 == swords.Count)
+		{
+			activeSwordIndex = 0;
+		}
+		else
+		{
+			activeSwordIndex = activeSwordIndex + 1;
+		}
+
+		swords[activeSwordIndex].gameObject.SetActive(true); // Re-enable the (selected) sword
+	}
 
     private int SwordId(GameObject sword)
     {
