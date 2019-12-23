@@ -19,6 +19,7 @@ public class SwordInventory : MonoBehaviour {
     [SerializeField]
     GameObject GuitarSwordPrefab = null;
 
+	Joystick swordJoystick;
     AudioSource selectSound;
 
     public List<GameObject> inventoryList = new List<GameObject>(); // Keep track of the inventory
@@ -38,6 +39,7 @@ public class SwordInventory : MonoBehaviour {
         inventoryList[index].GetComponent<SpriteRenderer>().color = color;
         switchSwords = true;
         level2part2 = false;
+		swordJoystick = GameObject.Find("SwordJoystick").GetComponent<FixedJoystick>();
     }
 
     void Update()
@@ -138,7 +140,7 @@ public class SwordInventory : MonoBehaviour {
         if (inventoryList.Count > 1 && switchSwords)
         {
             Color color = new Color(0.368F, 0.96F, 0.13F); // Set green color to show sword equipped
-            if (Input.mouseScrollDelta.y > 0) // mouse scroll up
+            if (Input.mouseScrollDelta.y > 0 || swordJoystick.Horizontal > 0.5F) // mouse scroll up
             {
                 inventoryList[index].GetComponent<SpriteRenderer>().color = Color.white;
                 index++;
@@ -147,7 +149,7 @@ public class SwordInventory : MonoBehaviour {
                 inventoryList[index].GetComponent<SpriteRenderer>().color = color;
                 selectSound.Play();
             }
-            if (Input.mouseScrollDelta.y < 0) // mouse scroll down
+            if (Input.mouseScrollDelta.y < 0 || swordJoystick.Horizontal < -0.5F) // mouse scroll down
             {
                 inventoryList[index].GetComponent<SpriteRenderer>().color = Color.white;
                 index--;

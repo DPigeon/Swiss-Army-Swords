@@ -8,7 +8,9 @@ public class Player : MonoBehaviour
 {
     public HitpointBar playerHPBar;
 	
+	// Mobile UI Stuff
 	Joystick joystick;
+	Joystick swordJoystick;
 
     [SerializeField] float playerSpeed;
     [SerializeField] float jumpForce;
@@ -61,6 +63,7 @@ public class Player : MonoBehaviour
         falling = false;
         hitpointBar = GameObject.Find("HitpointBar").GetComponent<HitpointBar>();
 		joystick = GameObject.Find("Fixed Joystick").GetComponent<FixedJoystick>();
+		swordJoystick = GameObject.Find("SwordJoystick").GetComponent<FixedJoystick>();
 
         audioSource = GetComponent<AudioSource>();
 
@@ -359,7 +362,7 @@ public class Player : MonoBehaviour
     {
         if (inventory.switchSwords && swords.Count > 1) // Making sure the player has more than one sword)
         {
-            if (Input.mouseScrollDelta.y > 0) // mouse scroll up
+            if (Input.mouseScrollDelta.y > 0 || swordJoystick.Horizontal > 0.5F) // mouse scroll up or mobile button right
                 {
                     swords[activeSwordIndex].GetComponent<Sword>().cooldownTimer = 0;
                     swords[activeSwordIndex].gameObject.SetActive(false); // Disable current sword
@@ -376,7 +379,7 @@ public class Player : MonoBehaviour
 
                     swords[activeSwordIndex].gameObject.SetActive(true); // Re-enable the (selected) sword
                 }
-            else if (Input.mouseScrollDelta.y < 0) // mouse scroll down
+            else if (Input.mouseScrollDelta.y < 0 || swordJoystick.Horizontal < -0.5F) // mouse scroll down or mobile button left
             {
                 swords[activeSwordIndex].GetComponent<Sword>().cooldownTimer = 0;
                 swords[activeSwordIndex].gameObject.SetActive(false); // Disable current sword

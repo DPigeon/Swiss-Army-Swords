@@ -22,7 +22,6 @@ public class Sword : MonoBehaviour
     public bool damaging;
     int _damage = 1;
 
-	public Button mobileAttackButton;
     public float cooldownTimer = 2;
     
     AudioSource audioSource;
@@ -48,8 +47,6 @@ public class Sword : MonoBehaviour
         swordAnimator = GetComponent<Animator>();
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
         inventory = GameObject.Find("InventoryManager").GetComponent<SwordInventory>();
-		mobileAttackButton = GameObject.Find("AttackButton").GetComponent<Button>();
-		mobileAttackButton.onClick.AddListener(SlashSword);
         swordCollider = player.GetComponentInChildren<BoxCollider2D>();
         swordCollider.enabled = false;
         audioSource = GetComponent<AudioSource>();
@@ -88,17 +85,17 @@ public class Sword : MonoBehaviour
                 }
             }
             if (Input.GetButtonDown("Fire2") && swordType == SwordType.LIGHT)
-            {
-                Ability();
-            }
-            else if (cooldownTimer <= 0)
-            {
-                if (Input.GetButtonDown("Fire2") && swordType != SwordType.FIRE)
-                {
-                    Ability();
-                    cooldownTimer = 2;
-                }
-            }
+			{
+				Ability();
+			}
+			else if (cooldownTimer <= 0)
+			{
+				if (Input.GetButtonDown("Fire2") && swordType != SwordType.FIRE)
+				{
+					Ability();
+					cooldownTimer = 2;
+				}
+			}
         }
     }
 
@@ -130,7 +127,7 @@ public class Sword : MonoBehaviour
         damaging = true;
         swordAnimator.SetTrigger("attack");
         damageDelay = damageDuration * damageDealt;
-    }
+    }	
 
     public virtual void Ability()
     {
@@ -141,4 +138,25 @@ public class Sword : MonoBehaviour
     {
 
     }
+	
+	public void MobileAbilityButton() {
+		if (swordType == SwordType.LIGHT) {
+			Ability();
+		}
+		else if (cooldownTimer <= 0) {
+			if (swordType != SwordType.FIRE) {
+				Ability();
+				cooldownTimer = 2;
+			}
+		}
+	}
+
+	public void MobileAttackButton() {
+		if (damaging == false && !pauseMenu.GetComponent<Pause>().paused) {
+			Attack();
+			swordCollider.enabled = true;
+			makeAttackSound();
+		}
+	}
+	
 }
