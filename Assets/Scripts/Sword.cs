@@ -67,12 +67,14 @@ public class Sword : MonoBehaviour
         { }
         else
         { 
-            if (Input.GetButtonDown("Fire1") && damaging == false && !pauseMenu.GetComponent<Pause>().paused)
-			{
-				Attack();
-				swordCollider.enabled = true;
-				makeAttackSound();
-			}
+			#if UNITY_STANDALONE_WIN || UNITY_STANDALONE_OSX
+				if (Input.GetButtonDown("Fire1") && damaging == false && !pauseMenu.GetComponent<Pause>().paused) // Attack clicking is same as touch so we disable it in mobile
+				{
+					Attack();
+					swordCollider.enabled = true;
+					makeAttackSound();
+				}
+			#endif
 
             if (damaging)
             {

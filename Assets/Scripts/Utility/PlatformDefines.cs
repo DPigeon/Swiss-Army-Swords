@@ -12,10 +12,12 @@ public class PlatformDefines : MonoBehaviour { // Used to define the platforms a
 		#endif
 		
 		#if UNITY_ANDROID
+			Screen.orientation = ScreenOrientation.LandscapeLeft;
 			Debug.Log("Android");
 		#endif
 
 		#if UNITY_IPHONE
+			Screen.orientation = ScreenOrientation.LandscapeLeft;
 			Debug.Log("iPhone");
 		#endif
 

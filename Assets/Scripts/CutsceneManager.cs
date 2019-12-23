@@ -27,4 +27,8 @@ public class CutsceneManager : MonoBehaviour {
 			}
 		}
     }
+	
+	public void SkipCutscene() {
+		director.time = 28.0;
+	}
 }

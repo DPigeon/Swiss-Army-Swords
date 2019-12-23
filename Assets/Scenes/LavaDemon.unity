@@ -3826,6 +3826,7 @@ MonoBehaviour:
   isFrozen: 0
   lavaHand: {fileID: 1647890338618951815, guid: 0d9440c5531cb40eab0bb4559f8db170,
     type: 3}
+  fightStart: 0
 --- !u!50 &835677590
 Rigidbody2D:
   serializedVersion: 4
@@ -7600,11 +7601,6 @@ PrefabInstance:
       propertyPath: m_SortingLayerID
       value: -394678549
       objectReference: {fileID: 0}
-    - target: {fileID: 6884039507494591218, guid: f9bfa27524db4fe4cafcd32a8f481e65,
-        type: 3}
-      propertyPath: maxHealth
-      value: 20
-      objectReference: {fileID: 0}
     - target: {fileID: 6884039507494591223, guid: f9bfa27524db4fe4cafcd32a8f481e65,
         type: 3}
       propertyPath: m_Layer
@@ -7614,6 +7610,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Layer
       value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 6884039507494591218, guid: f9bfa27524db4fe4cafcd32a8f481e65,
+        type: 3}
+      propertyPath: maxHealth
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 6884039505629218267, guid: f9bfa27524db4fe4cafcd32a8f481e65,
         type: 3}
