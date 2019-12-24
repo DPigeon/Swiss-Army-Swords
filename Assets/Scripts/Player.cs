@@ -301,7 +301,7 @@ public class Player : MonoBehaviour
             }
 
             //jump handling
-            if (grounded && Input.GetButtonDown("Jump") || grounded && joystick.Vertical >= 0.5F)
+            if (grounded && Input.GetButtonDown("Jump"))
             {
                 jumpTimeElapsed = 0;
                 rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
@@ -312,12 +312,32 @@ public class Player : MonoBehaviour
             {
                 timeJump();
             }
-            if (Input.GetButtonUp("Jump") || joystick.Vertical <= 0.5F)
+            if (Input.GetButtonUp("Jump"))
             {
                jumping = false;
             }
         }
     }
+	
+	// Mobile jump
+	public void JumpButtonDown() {
+		if (grounded && !pickingUpSword && !pauseMenu.GetComponent<Pause>().paused) {
+			jumpTimeElapsed = 0;
+			rb.AddForce(Vector2.up * jumpForce * 1.6F, ForceMode2D.Impulse);
+			jumping = true;
+			makeJumpNoise();
+		}
+	}
+	
+	public void JumpMobile() {
+		if (jumping && !pickingUpSword && !pauseMenu.GetComponent<Pause>().paused)
+			timeJump();
+	}
+	
+	public void JumpButtonUp() {
+		if (!pickingUpSword && !pauseMenu.GetComponent<Pause>().paused)
+			jumping = false;
+	}
 
     private void makeJumpNoise()
     {
