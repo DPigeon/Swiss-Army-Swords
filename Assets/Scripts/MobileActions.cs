@@ -29,6 +29,10 @@ public class MobileActions : MonoBehaviour {
         GetCurrentSword();
     }
 	
+	public void Attack() {
+		activeSword.GetComponent<Sword>().SlashSword();
+	}
+	
 	public void Jump() {
 		player.GetComponent<Player>().JumpMobile();
 	}
