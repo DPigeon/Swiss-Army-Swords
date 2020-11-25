@@ -83,7 +83,7 @@ public class Pause : MonoBehaviour
             controlScheme.SetActive(false);
         }
 
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown("joystick button 9"))
         {
             if (scene.name == "Cutscene" || scene.name == "FinalCutscene") // prevent input during cutscenes
             { }

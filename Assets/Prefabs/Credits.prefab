@@ -172,7 +172,7 @@ MonoBehaviour:
 
     LAKEY INSPIRED - Days Like These
 
-    LAKEY INSPIRED - In Your Dreams'
+    LAKEY INSPIRED - In My Dreams'
 --- !u!1 &8105841854155623992
 GameObject:
   m_ObjectHideFlags: 0
@@ -249,15 +249,8 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: 'Maude Braunstein
-
-    Kevin Luu
-
-    David Pigeon
-
-    Patrick Pin
-
-    Daniel Privorotsky'
+  m_Text: "Maude Braunstein\nKevin Luu\nDavid-\xC9tienne Pigeon\nPatrick Pin\nDaniel
+    Privorotsky"
 --- !u!1 &8371516113568226697
 GameObject:
   m_ObjectHideFlags: 0

@@ -65,7 +65,7 @@ public class MainMenu : MonoBehaviour {
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown("joystick button 9"))
         {
             mainMenu.SetActive(true);
 
